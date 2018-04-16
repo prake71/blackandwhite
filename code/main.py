@@ -1,51 +1,97 @@
 import pygame
-from constants import *
+import constants
+from level import *
+from level01 import *
+from platform import *
+from player import *
 
 
-scr_w = SCREENWIDTH  # screen width
-scr_h = SCREENHEIGHT # screen heigth
+scr_w = constants.SCREENWIDTH  # screen width
+scr_h = constants.SCREENHEIGHT # screen heigth
 
 FPS = 180 # frames per second
 
-
-
 def main(args):
-    """ app starts here """
-    # first iniitalize mixer
-    # to avoid sound latency
-    # http://stackoverflow.com/questions/18273722/pygame-sound-delay
-    pygame.mixer.pre_init(44100, -16, 2, 2048)
-    pygame.mixer.init()
-    # initalize pygame objects
+    """ Main Program """
     pygame.init()
 
-    # setting up the surface
-    screen = pygame.display.set_mode([scr_w, scr_h])
-    pygame.display.set_caption("Black And White")
+    # Set the height and width of the screen
+    size = [scr_w, scr_h]
+    screen = pygame.display.set_mode(size)
 
-    # game ended by closing window
+    pygame.display.set_caption("Platformer Jumper")
+
+    # Create the player
+    player = Player()
+
+    # Create all the levels
+    level_list = []
+    level_list.append(Level_01(player))
+
+    # Set the current level
+    current_level_no = 0
+    current_level = level_list[current_level_no]
+
+    active_sprite_list = pygame.sprite.Group()
+    player.level = current_level
+
+    player.rect.x = 340
+    player.rect.y =  200 - player.rect.height
+    active_sprite_list.add(player)
+
+    # Loop until the user clicks the close button.
     done = False
 
-    # clock object for limiting game speed
+    # Used to manage how fast the screen updates
     clock = pygame.time.Clock()
-    """"
-    my_game = game.Game(screen, FPS)
 
-    # Game Loop
+    # -------- Main Program Loop -----------
     while not done:
-        # handle events
-        done = my_game.handle_events()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
 
-        # handle game logic
-        my_game.update()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    player.go_left()
+                if event.key == pygame.K_RIGHT:
+                    player.go_right()
+                if event.key == pygame.K_SPACE:
+                    player.jump()
 
-        # draw current frame
-        my_game.draw_frame(screen)
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT and player.change_x < 0:
+                    player.stop()
+                if event.key == pygame.K_RIGHT and player.change_x > 0:
+                    player.stop()
 
-        # pause before next frame
-        clock.tick(FPS)
-        pygame.display.set_caption("fps: %.2f"% (clock.get_fps()))
+        # Update the player.
+        active_sprite_list.update()
 
-    # close window and quit
+        # Update items in the level
+        current_level.update()
+
+        # If the player gets near the right side, shift the world left (-x)
+        if player.rect.right > scr_w:
+            player.rect.right = scr_w
+
+        # If the player gets near the left side, shift the world right (+x)
+        if player.rect.left < 0:
+            player.rect.left = 0
+
+        # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
+        current_level.draw(screen)
+        active_sprite_list.draw(screen)
+
+        # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+
+        # Limit to 60 frames per second
+        clock.tick(60)
+
+        # Go ahead and update the screen with what we've drawn.
+        pygame.display.flip()
+
+    # Be IDLE friendly. If you forget this line, the program will 'hang'
+    # on exit.
     pygame.quit()
-"""
+
