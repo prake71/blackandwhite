@@ -65,6 +65,17 @@ class Player(pygame.sprite.Sprite):
             # Stop our vertical movement
             self.change_y = 0
 
+        if self.goal_reached():
+            print ("Goal reached, level completed!")
+
+    def goal_reached(self):
+        goal_hit_list = pygame.sprite.spritecollide(self, self.level.goal_list, False)
+        if len(goal_hit_list) > 0:
+            return True
+        else:
+            return False
+
+
     def calc_grav(self):
         """ Calculate effect of gravity. """
         if self.change_y == 0:
