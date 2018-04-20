@@ -14,4 +14,4 @@ YELLOW = (255,255,0)
 SCREENWIDTH = 800
 SCREENHEIGHT = 600
 
-
+DATADIR = "C:\\Users\\Expert\\projects\\blackandwhite\\data"

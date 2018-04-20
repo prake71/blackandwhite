@@ -10,7 +10,7 @@ from scenemanager import *
 scr_w = constants.SCREENWIDTH  # screen width
 scr_h = constants.SCREENHEIGHT # screen heigth
 
-FPS = 180 # frames per second
+FPS = 60 #frames per second
 
 def main(args):
     """ Main Program """
@@ -34,7 +34,7 @@ def main(args):
 
     # -------- Main Program Loop -----------
     while not done:
-        clock.tick(60)
+        clock.tick(FPS)
 
         if pygame.event.get(pygame.QUIT):
             done = False
@@ -47,7 +47,7 @@ def main(args):
         # Go ahead and update the screen with what we've drawn.
         pygame.display.flip()
 
-
+        pygame.display.set_caption(str(clock.get_fps()))
 
 
 

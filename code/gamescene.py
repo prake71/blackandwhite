@@ -4,6 +4,7 @@ from player import *
 from scene import *
 from level01 import *
 from customscene import *
+import titlescene
 
 class GameScene(Scene):
     scr_w = constants.SCREENWIDTH
@@ -62,7 +63,7 @@ class GameScene(Scene):
     def handle_events(self, events):
         for e in events:
             if e.type == pygame.KEYDOWN and e.key == pygame.K_ESCAPE:
-                self.manager.go_to(TitleScene())
+                self.manager.go_to(titlescene.TitleScene())
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_LEFT:
                     self.player.go_left()
