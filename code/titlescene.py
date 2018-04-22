@@ -19,6 +19,7 @@ class Background(pygame.sprite.Sprite):
             self.direction = direction
             # Set a referance to the image rect.
             self.rect = self.image.get_rect()
+            ptext.FONT_NAME_TEMPLATE = "fonts/%s.ttf"
 
             if direction > 0:
                 self.rect.right = 0
@@ -29,13 +30,13 @@ class Background(pygame.sprite.Sprite):
             self.change_x = 0
             self.change_y = 0
 
-            self.delay = 0
+            self.delay = 3
 
         def update(self):
             self.delay -= 1
             if self.delay < 0:
                 self.rect.x += 1 * self.direction + self.change_x
-                self.delay = 0
+                self.delay = 3
 
             print(self.rect.x)
             self.__check_bounds()
@@ -76,14 +77,17 @@ class TitleScene(object):
         # beware: ugly!
         screen.fill((255, 0, 0))
         # Bubblegum_Sans.ttf
-        ptext.FONT_NAME_TEMPLATE = "fonts/%s.ttf"
-        ptext.draw("Black And White", (300, 200), fontname="Bubblegum",fontsize=60)
+
+        ptext.draw("Black And White", (300, 200), fontname="Bubblegum",fontsize=60, centerx=constants.SCREENWIDTH // 2)
+        ptext.draw("Master the two worlds where \n black becomes white, \n up becomes down \n and left becomes right\n to reach the blue portal. \n Use cursor keys and space key!", (0, 300), fontname="Bubblegum", fontsize=30, centerx=constants.SCREENWIDTH // 2)
+        ptext.draw("Press Space To Start!", (0, 550), fontname="Bubblegum", fontsize = 30, centerx=constants.SCREENWIDTH // 2)
+    # Loud becomes Quiet")
         #print(pygame.font.get_fonts())
 
 
         self.bg_group.draw(screen)
         #screen.blit(self.white_bg,(0,0))
-
+        #ptext.draw("Black And White", (300, 200), fontname="Bubblegum", fontsize=60, centerx=constants.SCREENWIDTH // 2)
 
 
     def update(self):

@@ -54,7 +54,7 @@ class Level_01(Level):
             posx = 0
             for char in line:
                 if char == "-":
-                    block = Platform(20, 20)
+                    block = Platform(20, 20, BLACK)
                     block.rect.x = posx
                     block.rect.y = posy
                     block.player = self.player
@@ -67,3 +67,6 @@ class Level_01(Level):
                 posx = posx + 20
             posy = posy + 20
         print(self.platform_list)
+
+
+

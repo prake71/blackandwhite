@@ -1,5 +1,6 @@
 import pygame
 import constants
+import titlescene
 from level import *
 from level01 import *
 from platform import *
@@ -22,8 +23,6 @@ def main(args):
 
     pygame.display.set_caption("Platformer Jumper")
 
-
-
     # Loop until the user clicks the close button.
     done = False
 
@@ -31,6 +30,7 @@ def main(args):
     clock = pygame.time.Clock()
 
     manager = SceneManager()
+    manager.go_to(titlescene.TitleScene())
 
     # -------- Main Program Loop -----------
     while not done:
@@ -48,11 +48,6 @@ def main(args):
         pygame.display.flip()
 
         pygame.display.set_caption(str(clock.get_fps()))
-
-
-
-
-
 
     # Be IDLE friendly. If you forget this line, the program will 'hang'
     # on exit.

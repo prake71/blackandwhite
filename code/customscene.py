@@ -1,4 +1,7 @@
 import pygame
+#import random
+import constants
+import titlescene
 
 class CustomScene(object):
 
@@ -9,7 +12,8 @@ class CustomScene(object):
 
     def render(self, screen):
         # ugly!
-        screen.fill((0, 200, 0))
+        #color = random.randint(0,1)
+        screen.fill(constants.BLACK)
         text1 = self.font.render(self.text, True, (255, 255, 255))
         screen.blit(text1, (200, 50))
 
@@ -19,5 +23,5 @@ class CustomScene(object):
     def handle_events(self, events):
         for e in events:
             if e.type == pygame.KEYDOWN:
-                self.manager.go_to(TitleScene())
+                self.manager.go_to(titlescene.TitleScene())
 

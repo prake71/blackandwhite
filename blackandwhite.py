@@ -4,7 +4,7 @@
 
 import sys, os
 
-#these directories will be used if solarwolf cannot find
+#these directories will be used if blackandwhite cannot find
 #the directories in the location of the main program
 if sys.platform == "win32":
     DATADIR = "C:\\Program Files\\BlackAndWhite"
